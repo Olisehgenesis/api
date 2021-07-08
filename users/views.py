@@ -30,15 +30,15 @@ from django.core.exceptions import ObjectDoesNotExist
 #@permission_classes([IsAuthenticated])
 def add_user(request):
     payload = json.loads(request.body)
-    user = request.user
+    #user = request.user
     try:
-        user= user.objects.create(
+        user = User.objects.create(
             username=payload["username"],
             password=payload["password"],
             email = payload["email"],
             phone = payload["phone"],
-            class_level = payload["level"],
-            user_type = payload["type"],
+            class_level = payload["class_level"],
+            user_type = payload["user_type"],
         ) 
         serializer = userSerializer()
         return JsonResponse({'users': serializer.data}, safe=False, status=status.HTTP_201_CREATED)
